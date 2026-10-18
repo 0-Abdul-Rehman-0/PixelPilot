@@ -237,6 +237,8 @@
     // Diagnosis submission -> POST /api/analyze (multipart FormData)
     // ------------------------------------------------------------------
     async function runDiagnosis() {
+        if (analyzing) return;
+
         const file = selectedFile;
         if (!file) {
             setError('Please select a screenshot before analyzing.');

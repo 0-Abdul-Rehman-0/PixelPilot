@@ -59,7 +59,7 @@ Copy-Item .env.example .env
 Edit `.env` and add your Google AI Studio API key:
 
 ```env
-GEMINI_API_KEY=your_actual_api_key_here
+GEMINI_API_KEY=replace-with-your-google-ai-studio-key
 GEMMA_MODEL=gemma-4-26b-a4b-it
 ```
 
@@ -77,7 +77,7 @@ GEMMA_MODEL=gemma-4-26b-a4b-it
 2. **Add Context (Optional):** Enter a brief issue description, paste browser console errors, or add HTML/CSS snippets.
 3. **Analyze:** Click **Analyze Screenshot**.
 4. **Inspect Findings:** Review the structured report showing issue title, severity, evidence, hypothesis, and suggested fixes.
-5. **Download Report:** Click **Download Structured Report (JSON)** to save the report for your team or issue tracker.
+5. **Download Report:** Click **Download JSON** to save the report for your team or issue tracker.
 
 The browser submits multipart fields named exactly `screenshot`, `description`, `console_errors`, and `html_css` to `POST /api/analyze`. The backend validates the image and context, calls `gemma-4-26b-a4b-it`, validates the structured response, and returns `summary`, `issues`, and `limitations`. `GET /api/health` reports readiness and model/configuration status without exposing credentials.
 
@@ -104,6 +104,8 @@ LICENSE                     MIT license
 ```
 
 The main request flow is: browser upload -> `POST /api/analyze` -> MIME, detected-format, size, and text validation -> exact Gemma model -> JSON normalization -> safe text rendering. The model receives `screenshot`, `description`, `console_errors`, and `html_css`.
+
+See the validated [PixelPilot request lifecycle diagram](architecture/pixelpilot-request-flow.html) for the browser-to-FastAPI-to-Gemma sequence, including validation, response normalization, fallback, and sanitized error paths.
 
 ## Testing and validation
 
@@ -138,7 +140,7 @@ Unit tests cover parser behavior, prompt requirements, uncertainty fallback, upl
 
 ## Changes from the Original Harness
 
-The repository has no Git commits and contains no separate starter metadata or harness instructions, so a historical diff cannot be verified. The changes verifiable from the current files are the FastAPI entry point, vanilla frontend workflow, Google GenAI integration, screenshot/context validation, structured response normalization, focused tests, agent documentation, and submission documentation. No unverified original feature is claimed.
+The available Git history begins with PixelPilot submission-preparation commits and contains no separate starter metadata or harness instructions, so a historical starter diff cannot be verified. The changes verifiable from the current files are the FastAPI entry point, vanilla frontend workflow, Google GenAI integration, screenshot/context validation, structured response normalization, focused tests, agent documentation, skill artifact, and submission documentation. No unverified original feature is claimed.
 ---
 
 ## License
