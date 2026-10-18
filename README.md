@@ -134,7 +134,7 @@ Unit tests cover parser behavior, prompt requirements, uncertainty fallback, upl
 - **Diagnostic honesty:** The prompt requires concrete evidence, ranked hypotheses, calibrated confidence/severity, verification steps, and conditional fixes. Unsupported CSS mechanisms are not treated as confirmed causes.
 - **Secret handling:** `.env` and `.env.*` are ignored, `.env.example` uses a placeholder, and health/errors do not expose credentials.
 - **License:** The repository contains an MIT license.
-- **Skill artifact:** No official starter skill format or evaluator skill directory was present in the available repository, so no arbitrary skill directory was added.
+- **Skill artifact:** [skills/pixelpilot-debugging/SKILL.md](skills/pixelpilot-debugging/SKILL.md) provides the PixelPilot screenshot-diagnosis workflow. No evaluator-specific starter format was present, so this uses conventional `SKILL.md` frontmatter; the external evaluator's exact discovery rules remain unverified.
 
 ## Changes from the Original Harness
 
