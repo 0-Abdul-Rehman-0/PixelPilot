@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelPilot — AI Website Debugging</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="brand">
+                <svg class="brand-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                    <rect x="2" y="6" width="24" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M8 14h4l2-3 2 6 2-3h4" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="brand-name">PixelPilot</span>
+            </div>
+            <div class="header-status" id="statusIndicator">
+                <span class="status-dot" id="statusDot"></span>
+                <span class="status-text" id="statusText">Checking…</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+
+        <!-- Hero -->
+        <section class="hero">
+            <h1 class="hero-headline">Find the bug.<br>Understand the cause.<br>Fix it faster.</h1>
+            <p class="hero-description">Upload a website screenshot and PixelPilot uses Gemma 4 to identify UI issues, trace likely causes, and suggest fixes — structured as a debugging report you can act on.</p>
+        </section>
+
+        <!-- Workspace -->
+        <section class="workspace" id="workspace">
+
+            <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload a website screenshot">
+                <div class="upload-empty" id="uploadEmpty">
+                    <svg class="upload-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                        <rect x="4" y="8" width="40" height="32" rx="4" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <path d="M24 18v12M18 24l6-6 6 6" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p class="upload-label">Drop a screenshot here, or click to browse</p>
+                    <p class="upload-hint">PNG, JPEG, or WebP — up to 10 MB</p>
+                </div>
+                <div class="upload-preview" id="uploadPreview" hidden>
+                    <img id="previewImage" alt="Screenshot preview">
+                    <span class="file-meta" id="fileMeta" hidden></span>
+                    <button class="remove-btn" id="removeBtn" type="button" aria-label="Remove screenshot">
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 4.5l9 9M13.5 4.5l-9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </button>
+                </div>
+                <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" hidden>
+            </div>
+
+            <div class="context-fields">
+                <div class="field">
+                    <label for="descriptionField">What's wrong?</label>
+                    <textarea id="descriptionField" placeholder="Navigation overlaps hero section on mobile viewports" maxlength="4000" rows="2"></textarea>
+                </div>
+                <div class="field">
+                    <label for="consoleField">Console errors</label>
+                    <textarea id="consoleField" placeholder="Uncaught TypeError: Cannot read properties of null" maxlength="4000" rows="2"></textarea>
+                </div>
+                <div class="field">
+                    <label for="htmlCssField">Relevant HTML / CSS</label>
+                    <textarea id="htmlCssField" placeholder='<nav class="main-nav" style="position: fixed">' maxlength="4000" rows="2"></textarea>
+                </div>
+            </div>
+
+            <button class="analyze-btn" id="analyzeBtn" type="button" disabled>
+                <span class="analyze-btn-label" id="analyzeBtnLabel">Analyze screenshot</span>
+                <span class="analyze-btn-loading" id="analyzeBtnLoading" hidden>
+                    <svg class="spinner" width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" stroke-dasharray="36 14" stroke-linecap="round"/></svg>
+                    Analyzing…
+                </span>
+            </button>
+
+            <p class="error-message" id="errorMessage" hidden></p>
+        </section>
+
+        <!-- Results -->
+        <section class="results" id="results" hidden>
+
+            <div class="results-header">
+                <h2 class="results-title">Debugging report</h2>
+                <div class="results-actions">
+                    <button class="action-btn" id="copyBtn" type="button">Copy report</button>
+                    <button class="action-btn" id="downloadBtn" type="button">Download JSON</button>
+                    <button class="action-btn action-btn--new" id="newAnalysisBtn" type="button">New analysis</button>
+                </div>
+            </div>
+
+            <div class="summary-card" id="summaryCard"></div>
+
+            <div class="issues-list" id="issuesList"></div>
+
+            <details class="limitations-panel" id="limitationsPanel">
+                <summary class="limitations-toggle">Analysis limitations</summary>
+                <ul class="limitations-list" id="limitationsList"></ul>
+            </details>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>PixelPilot — Hacktoberfest Hack Day Lahore × Fluxxion · Powered by Gemma 4</p>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
